@@ -11,7 +11,6 @@ const expect = chai.expect;
 chai.use(require('sinon-chai'));
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
-const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider/awsProvider`); // eslint-disable-line
 const Serverless = require(`${serverlessPath}/lib/Serverless`); // eslint-disable-line
 
 
@@ -28,6 +27,10 @@ const dummyDependencyLists = {
   'path/to/fileB.js': [
     '/Users/name/project/node_modules/sax/lib/sax.js',
     '/Users/name/project/node_modules/something/index.js',
+  ],
+  'path/to/localDeps.js': [
+    '/Users/name/project/local.js',
+    '/Users/name/project/src/another.js',
   ],
 };
 
@@ -57,7 +60,6 @@ describe('Inject Dependencies', () => {
     serverless.config.servicePath = '';
     serverless.service.package = {};
     serverless.service.functions = {};
-    serverless.setProvider('aws', new AwsProvider(serverless, options));
   });
 
   afterEach(() => {
@@ -108,6 +110,18 @@ describe('Inject Dependencies', () => {
       plugin = new InjectDependencies(serverless);
       plugin.hooks['before:package:initialize']();
       const expected = ['node_modules/sax/**', 'node_modules/something/**', 'node_modules/xml2js/**'];
+      expect(serverless.service.package.include).to.deep.equal(expected);
+    });
+
+    it('adds local dependencies', () => {
+      serverless.service.functions = {
+        local: {
+          handler: 'path/to/localDeps.post',
+        },
+      };
+      plugin = new InjectDependencies(serverless);
+      plugin.hooks['before:package:initialize']();
+      const expected = ['local.js', 'src/another.js'];
       expect(serverless.service.package.include).to.deep.equal(expected);
     });
 
