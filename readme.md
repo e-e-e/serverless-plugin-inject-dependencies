@@ -1,7 +1,7 @@
 # serverless-plugin-inject-dependencies
 
-[![Build Status](https://travis-ci.org/loanmarket/serverless-plugin-inject-dependencies.svg?branch=master)](https://travis-ci.org/loanmarket/serverless-plugin-inject-dependencies)
-[![Coverage Status](https://coveralls.io/repos/github/loanmarket/serverless-plugin-inject-dependencies/badge.svg?branch=master)](https://coveralls.io/github/loanmarket/serverless-plugin-inject-dependencies?branch=master)
+[![Build Status](https://travis-ci.org/e-e-e/serverless-plugin-inject-dependencies.svg?branch=master)](https://travis-ci.org/e-e-e/serverless-plugin-inject-dependencies)
+[![Coverage Status](https://coveralls.io/repos/github/e-e-e/serverless-plugin-inject-dependencies/badge.svg?branch=master)](https://coveralls.io/github/e-e-e/serverless-plugin-inject-dependencies?branch=master)
 
 Easily include only required code your serverless package.
 
