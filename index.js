@@ -9,7 +9,7 @@ function getHandlerFilePath(servicePath, handler) {
 
 function resolveToBaseModuleGlob(file) {
   const relative = path.relative(process.cwd(), file);
-  const match = relative.match(/^(node_modules\/\S+?\/)/);
+  const match = relative.match(/^((\.\.\/)*node_modules\/\S+?\/)/);
   if (match) {
     return `${match[1]}**`;
   }
